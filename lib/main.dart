@@ -1,5 +1,6 @@
-import 'package:calculator/widgets/button.dart';
 import 'package:flutter/material.dart';
+
+/* This calculator app was developed by adetoba as part of the 100 days coding challenge */
 
 void main() => runApp(MyApp());
 
@@ -8,26 +9,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Calc by Adtoba',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+  MyHomePage({Key key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   String output = '0';
 
   String _output = '0';
@@ -35,53 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double num2 = 0.0;
   String operand = "";
 
-  onButtonPressed(String buttonText) {
-    if(buttonText == 'CLEAR') {
-      _output = "0";
-      num1 = 0.0;
-      num2 = 0.0;
-      operand = "";
-    } else if(buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/") {
-
-      num1 = double.parse(output);
-      operand = buttonText;
-      _output = "0";
-    } else if(buttonText == ".") {
-      if(_output.contains("."))  {
-        print('Already contains decimal');
-      } else {
-        _output = _output + buttonText;
-      }
-    } else if(buttonText == "=") {
-      num2 = double.parse(output);
-
-      if(operand == "+") {
-        _output = (num1 + num2).toString();
-      }
-      if(operand == "-") {
-        _output = (num1 - num2).toString();
-      }
-      if(operand == "/") {
-        _output = (num1 / num2).toString();
-      }
-      
-      if(operand == "X") {
-        _output = (num1 * num2).toString();
-      }
-
-      num1 = 0.0;
-      num2 = 0.0;
-      operand = "";
-    } else {
-      _output = _output + buttonText;
-    }
-
-
-    setState(() {
-      output = double.parse(_output).toStringAsFixed(2);
-    });
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
               width: MediaQuery.of(context).size.width,
               height: 100.0,
               color: Colors.white,
-              child: Text(output, textAlign: TextAlign.end, style: TextStyle(fontSize: 40.0),),
+              child: Text(
+                output,
+                textAlign: TextAlign.end,
+                style: TextStyle(fontSize: 40.0),
+              ),
             ),
           ),
           Column(
@@ -111,7 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   button("9"),
                   button("/"),
                 ],
-
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -121,9 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   button("6"),
                   button("X"),
                 ],
-
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -132,7 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   button("3"),
                   button("-"),
                 ],
-
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -142,16 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   button("00"),
                   button("+"),
                 ],
-
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   button("CLEAR"),
                   button("="),
-                  
                 ],
-
               )
             ],
           ),
@@ -159,8 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-
 
   Widget button(String buttonText) {
     return Expanded(
@@ -173,39 +120,77 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 60.0,
           width: 60.0,
           child: Center(
-            child: Text(buttonText, style: TextStyle(fontSize: 20.0, color: Colors.white),),
+            child: Text(
+              buttonText,
+              style: TextStyle(fontSize: 20.0, color: Colors.white),
+            ),
           ),
           decoration: BoxDecoration(
             color: Colors.purple,
             borderRadius: BorderRadius.circular(12.0),
             boxShadow: [
               BoxShadow(
-                color: Colors.white10,
-                offset: Offset(3.0, 3.0),
-                blurRadius: 3.0,
-                spreadRadius: 1.0
-              ),
+                  color: Colors.white10,
+                  offset: Offset(3.0, 3.0),
+                  blurRadius: 3.0,
+                  spreadRadius: 1.0),
               BoxShadow(
-                color: Colors.white12,
-                offset: Offset(-3.0, -3.0),
-                blurRadius: 3.0,
-                spreadRadius: 1.0
-              ),
+                  color: Colors.white12,
+                  offset: Offset(-3.0, -3.0),
+                  blurRadius: 3.0,
+                  spreadRadius: 1.0),
             ],
-            // gradient: LinearGradient(
-            //   begin: Alignment.topLeft,
-            //   end: Alignment.bottomRight,
-            //   colors: [
-            //     Colors.purple,
-            //     Colors.purple,
-            //     Colors.purple,
-            //     Colors.purple
-            //   ],
-            //   stops: [0.1, 0.3, 0.8, 1]
-            // )
           ),
         ),
       ),
     );
   }
+  onButtonPressed(String buttonText) {
+    if (buttonText == 'CLEAR') {
+      _output = "0";
+      num1 = 0.0;
+      num2 = 0.0;
+      operand = "";
+    } else if (buttonText == "+" ||
+      buttonText == "-" ||
+      buttonText == "X" ||
+      buttonText == "/") {
+      num1 = double.parse(output);
+      operand = buttonText;
+      _output = "0";
+    } else if (buttonText == ".") {
+      if (_output.contains(".")) {
+        print('Already contains decimal');
+      } else {
+        _output = _output + buttonText;
+      }
+    } else if (buttonText == "=") {
+      num2 = double.parse(output);
+
+      if (operand == "+") {
+        _output = (num1 + num2).toString();
+      }
+      if (operand == "-") {
+        _output = (num1 - num2).toString();
+      }
+      if (operand == "/") {
+        _output = (num1 / num2).toString();
+      }
+
+      if (operand == "X") {
+        _output = (num1 * num2).toString();
+      }
+
+      num1 = 0.0;
+      num2 = 0.0;
+      operand = "";
+    } else {
+      _output = _output + buttonText;
+    }
+
+    setState(() {
+      output = double.parse(_output).toStringAsFixed(2);
+    });
+  }
+
 }
