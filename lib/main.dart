@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple,
+      backgroundColor: Color(0xFFfafafa),
       body: Stack(
         children: <Widget>[
           Positioned(
@@ -48,11 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.all(10.0),
               width: MediaQuery.of(context).size.width,
               height: 100.0,
-              color: Colors.white,
               child: Text(
                 output,
                 textAlign: TextAlign.end,
                 style: TextStyle(fontSize: 40.0),
+              ),
+              decoration: BoxDecoration(
+                color: Color(0xFFe0e0e0),
+                borderRadius: BorderRadius.circular(10.0)
               ),
             ),
           ),
@@ -65,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   button("7"),
                   button("8"),
                   button("9"),
-                  button("/"),
+                  button("/", bgColor: Colors.purple, fontColor: Colors.white),
                 ],
               ),
               Row(
@@ -74,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   button("4"),
                   button("5"),
                   button("6"),
-                  button("X"),
+                  button("X", bgColor: Colors.purple, fontColor: Colors.white),
                 ],
               ),
               Row(
@@ -83,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   button("1"),
                   button("2"),
                   button("3"),
-                  button("-"),
+                  button("-", bgColor: Colors.purple, fontColor: Colors.white),
                 ],
               ),
               Row(
@@ -92,14 +95,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   button("."),
                   button("0"),
                   button("00"),
-                  button("+"),
+                  button("+", bgColor: Colors.purple, fontColor: Colors.white),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  button("CLEAR"),
-                  button("="),
+                  button("C", fontColor: Colors.white, bgColor: Colors.green),
+                  button("=", bgColor: Colors.purple, fontColor: Colors.white),
                 ],
               )
             ],
@@ -109,44 +112,49 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget button(String buttonText) {
+  Widget button(String buttonText, {Color fontColor, Color bgColor}) {
     return Expanded(
       child: InkWell(
         onTap: () {
           onButtonPressed(buttonText);
         },
         child: Container(
-          margin: EdgeInsets.all(4.0),
+          margin: EdgeInsets.all(10.0),
           height: 60.0,
           width: 60.0,
           child: Center(
             child: Text(
               buttonText,
-              style: TextStyle(fontSize: 20.0, color: Colors.white),
+              style: TextStyle(
+                fontSize: 20.0, 
+                color: fontColor == null ? Colors.black : fontColor,
+                fontWeight: FontWeight.w400
+              ),
             ),
           ),
           decoration: BoxDecoration(
-            color: Colors.purple,
+            color: bgColor == null ? Color(0xFFfafafa) : bgColor,
             borderRadius: BorderRadius.circular(12.0),
             boxShadow: [
               BoxShadow(
-                  color: Colors.white10,
-                  offset: Offset(3.0, 3.0),
-                  blurRadius: 3.0,
-                  spreadRadius: 1.0),
+                  color: Colors.grey[300],
+                  offset: Offset(4.0, 4.0),
+                  blurRadius: 19.0,
+                  spreadRadius: 0.0),
               BoxShadow(
-                  color: Colors.white12,
-                  offset: Offset(-3.0, -3.0),
+                  color: Colors.grey[300],
+                  offset: Offset(-4.0, -4.0),
                   blurRadius: 3.0,
-                  spreadRadius: 1.0),
+                  spreadRadius: 0.0),
             ],
+           
           ),
         ),
       ),
     );
   }
-  onButtonPressed(String buttonText) {
-    if (buttonText == 'CLEAR') {
+  void onButtonPressed(String buttonText) {
+    if (buttonText == 'C') {
       _output = "0";
       num1 = 0.0;
       num2 = 0.0;
